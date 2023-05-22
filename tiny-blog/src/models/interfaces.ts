@@ -5,8 +5,9 @@ export interface IPost {
   body: string,
   reactions: number,
   tags: string[],
+  imageUrl: string
 }
 
 export interface IImage {
-  url:string
+  download_url:string
 }

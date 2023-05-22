@@ -1,4 +1,5 @@
-import { IPost } from "../models/interfaces";
+import { IImage, IPost } from "../models/interfaces";
+import { getRandomImagesfromApi } from "./loremPicsumApi";
 
 
 // export const getPostFromApi = async () => {
@@ -7,7 +8,22 @@ import { IPost } from "../models/interfaces";
 // }
 
  export const getPostFromApi = async () => {
+
     const response = (await fetch('src/services/Mockdata.json')).json();
-    return (await response).posts as IPost[] ;
+    const posts = (await response).posts as Partial<IPost>[] ;
+
+    const images = await getRandomImagesfromApi();
+
+    return addImagesToPosts(images, posts)
   }
 
+
+  const addImagesToPosts = (images: IImage[], posts: Partial<IPost>[]) => {
+
+    const Imagedposts = posts.map((post, index) => {
+      post.imageUrl = images[index].download_url;
+      return post;
+    })
+
+    return Imagedposts as IPost[];
+  }

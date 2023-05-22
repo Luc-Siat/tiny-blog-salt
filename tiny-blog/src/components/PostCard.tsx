@@ -8,7 +8,7 @@ type PostCardProps = {
 export const PostCard = ({ post } : PostCardProps) => {
   return (
       <div className="max-w-sm rounded overflow-hidden shadow-lg flex flex-column justify-between">
-        <img className="w-full" src="https://picsum.photos/400/200" alt="random image"/>
+        <img className="w-full h-52 object-cover" src={post.imageUrl} alt="random image"/>
         <div className="px-6 py-4">
           <h3 className="font-bold text-xl mb-2">{post.title}</h3>
           <p className="text-gray-700 text-base">{post.body.slice(0, 100)}...</p>
