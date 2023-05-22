@@ -8,7 +8,7 @@ type PostSectionProps = {
 }
 
 export const PostSection = ({ posts, name } : PostSectionProps) => {
-  const [showSection, setShowSection] = useState<boolean>(true);
+  const [showSection, setShowSection] = useState<boolean>(false);
 
   const handleToggle = (e :SyntheticEvent) => {
     e.preventDefault();
@@ -18,10 +18,9 @@ export const PostSection = ({ posts, name } : PostSectionProps) => {
 
   return (
     <section className='flex flex-col'>
-      <header className="flex text-4xl py-3 my-8 border-y justify-center relative">
-
-        <h2 className="">{name.toUpperCase()}</h2>
-        <button className="absolute end-0" onClick={(e) => handleToggle(e)}>{showSection ? (<i className="fa-solid fa-chevron-down"></i>) : (<i className="fa-solid fa-chevron-up"></i>)} </button>
+      <header onClick={(e) => handleToggle(e)} className="cursor-pointer flex text-4xl py-3 my-8 border-y justify-center relative">
+        <h2 className="">{ name.charAt(0).toUpperCase() + name.slice(1)}</h2>
+        <span className="absolute end-0">{showSection ? (<i className="fa-solid fa-chevron-down"></i>) : (<i className="fa-solid fa-chevron-up"></i>)} </span>
       </header>
       { showSection &&
         <div className="grid grid-cols-3 gap-12">

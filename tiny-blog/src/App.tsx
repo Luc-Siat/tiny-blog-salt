@@ -38,9 +38,9 @@ function App() {
     <>
       <Navbar />
       <header className=" p-8 bg-cover w-screen">
-        <h1 className="text-center text-8xl m-12 text-white"> Tiny blog</h1>
+        <h1 className="text-center text-8xl m-20 text-white"> Tiny blog</h1>
       </header>
-      <main className='flex flex-wrap flex-col container mx-auto bg-white rounded p-4'>
+      <main className='flex flex-wrap flex-col container mx-auto bg-white rounded p-4 mb-6'>
         {
           sections.map(section => <PostSection posts={posts.filter(post => post.tags.some(tag => tag == section))} name={section} key={section}/>)
         }

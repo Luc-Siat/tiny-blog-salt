@@ -4,7 +4,11 @@ import { getRandomImagesfromApi } from "./loremPicsumApi";
 
 // export const getPostFromApi = async () => {
 //   const response = (await fetch('https://dummyjson.com/posts')).json();
-//   return (await response).posts as IPost[] ;
+//   const posts = (await response).posts as IPost[] ;
+
+//   const images = await getRandomImagesfromApi();
+
+  // return addImagesToPosts(images, posts)
 // }
 
  export const getPostFromApi = async () => {
