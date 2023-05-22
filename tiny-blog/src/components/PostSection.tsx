@@ -1,3 +1,4 @@
+import { SyntheticEvent, useState } from 'react'
 import { IPost } from '../models/interfaces'
 import { PostCard } from './PostCard'
 
@@ -7,12 +8,26 @@ type PostSectionProps = {
 }
 
 export const PostSection = ({ posts, name } : PostSectionProps) => {
+  const [showSection, setShowSection] = useState<boolean>(true);
+
+  const handleToggle = (e :SyntheticEvent) => {
+    e.preventDefault();
+    setShowSection(!showSection);
+  }
+
+
   return (
     <section className='flex flex-col'>
-      <h1 className="text-5xl py-3 my-8 border-y">{name.toUpperCase()}</h1>
-      <div className="grid grid-cols-3 gap-12">
-        {posts.map(post => <PostCard post={post} key={post.id} />)}
-      </div>
+      <header className="flex text-4xl py-3 my-8 border-y justify-center relative">
+
+        <h1 className="">{name.toUpperCase()}</h1>
+        <button className="absolute end-0" onClick={(e) => handleToggle(e)}>{showSection ? (<i className="fa-solid fa-chevron-up"></i>) : (<i className="fa-solid fa-chevron-down"></i>)} </button>
+      </header>
+      { showSection &&
+        <div className="grid grid-cols-3 gap-12">
+          {posts.map(post => <PostCard post={post} key={post.id} />)}
+        </div>
+      }
     </section>
   )
 }

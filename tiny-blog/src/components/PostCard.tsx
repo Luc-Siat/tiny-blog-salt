@@ -13,13 +13,13 @@ export const PostCard = ({ post } : PostCardProps) => {
           <h3 className="font-bold text-xl mb-2">{post.title}</h3>
           <p className="text-gray-700 text-base">{post.body.slice(0, 100)}...</p>
         </div>
-        <div>
-          <ul className='px-6 pt-4 pb-2'>{post.tags.map(tag =>  {
-                return <li className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2" key={tag+post.id}>{tag}</li>
+        <div className='flex justify-between items-center p-3'>
+          <ul className='flex gap-1'>{post.tags.map(tag =>  {
+                return <li className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700" key={tag+post.id}>{tag}</li>
               }
             )}
           </ul>
-          <p>{post.reactions} reactions</p>
+          <p className="text-end font-semibold">{post.reactions} ❤️</p>
         </div>
       </div>
   )

@@ -41,7 +41,7 @@ function App() {
   return (
     <>
     <h1 className="text-center text-8xl m-12">Tiny blog</h1>
-    <main className='flex flex-wrap flex-col gap-8'>
+    <main className='flex flex-wrap flex-col  '>
       {
         sections.map(section => <PostSection posts={posts.filter(post => post.tags.some(tag => tag == section))} name={section}/>)
       }
