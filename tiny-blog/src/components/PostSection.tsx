@@ -1,5 +1,6 @@
 import React from 'react'
 import { IPost } from '../models/interfaces'
+import { PostCard } from './PostCard'
 
 type PostSectionProps = {
   posts: IPost[]
@@ -7,6 +8,8 @@ type PostSectionProps = {
 
 export const PostSection = ({ posts } : PostSectionProps) => {
   return (
-    <div>PostSection</div>
+    <section>
+      {posts.map(post => <PostCard post={post} />)}
+    </section>
   )
 }
