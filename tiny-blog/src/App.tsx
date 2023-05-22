@@ -3,6 +3,7 @@ import './App.css'
 import { getPostFromApi } from './services/dummyjsonApi';
 import { IPost } from './models/interfaces';
 import { PostSection } from './components/PostSection';
+import { getRandomImagesfromApi } from './services/loremPicsumApi';
 
 function App() {
   const [posts, setPosts] = useState<IPost[]>([]);
@@ -31,6 +32,7 @@ function App() {
   const getData = async () => {
     const posts = await getPostFromApi();
     setPosts(posts);
+    const images = await getRandomImagesfromApi();
     getRandomSections(posts);
   }
 

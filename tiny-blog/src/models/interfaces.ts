@@ -6,3 +6,7 @@ export interface IPost {
   reactions: number,
   tags: string[],
 }
+
+export interface IImage {
+  url:string
+}
