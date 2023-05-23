@@ -9,6 +9,7 @@ import { Navbar } from './components/Navbar';
 function App() {
   const [posts, setPosts] = useState<IPost[]>([]);
   const [sections, setSections] = useState<string[]>([]);
+  const [filter, setFilter] = useState<string>("");
 
   const getRandomSections = (posts : IPost[]) => {
     const tags : string[] = [];
@@ -41,8 +42,13 @@ function App() {
         <h1 className="text-center text-8xl m-20 text-white"> Tiny blog</h1>
       </header>
       <main className='flex flex-wrap flex-col container mx-auto bg-white rounded p-4 mb-6'>
+        <p>select your favorite tag here! <i className="fa-solid fa-arrow-down"></i></p>
+        <select className="text-center text-2xl border rounded-full" onChange={(e) => setFilter(e.target.value)} name="filter" id="filter">
+          {sections.map(section => <option value={section}>{section}</option> )}
+
+        </select>
         {
-          sections.map(section => <PostSection posts={posts.filter(post => post.tags.some(tag => tag == section))} name={section} key={section}/>)
+          sections.filter(section => section == filter || filter == "").map(section => <PostSection posts={posts.filter(post => post.tags.some(tag => tag == section))} name={section} key={section}/>)
         }
       </main>
     </>

@@ -8,7 +8,7 @@ type PostSectionProps = {
 }
 
 export const PostSection = ({ posts, name } : PostSectionProps) => {
-  const [showSection, setShowSection] = useState<boolean>(false);
+  const [showSection, setShowSection] = useState<boolean>(true);
 
   const handleToggle = (e :SyntheticEvent) => {
     e.preventDefault();
