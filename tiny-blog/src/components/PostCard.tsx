@@ -1,4 +1,3 @@
-import React from 'react'
 import { IPost } from '../models/interfaces'
 
 type PostCardProps = {

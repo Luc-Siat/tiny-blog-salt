@@ -4,7 +4,7 @@ import { getPostFromApi } from './services/dummyjsonApi';
 import { IPost } from './models/interfaces';
 import { PostSection } from './components/PostSection';
 import { Navbar } from './components/Navbar';
-import { json } from 'stream/consumers';
+import { Main } from './components/Main';
 
 type LoadingState = {
   status: "LOADING",
@@ -23,8 +23,6 @@ type OkState = {
 type State = LoadingState | ErrorState | OkState;
 
 function App() {
-  const [posts, setPosts] = useState<IPost[]>([]);
-  const [sections, setSections] = useState<string[]>([]);
   const [filter, setFilter] = useState<string>("");
   const [state, setState] = useState<State>({status: "LOADING"});
 
@@ -44,17 +42,11 @@ function App() {
 
   const getData = async () => {
     const posts = await getPostFromApi();
-    if (!posts.ok) {
-      setState({error: posts.error, status: "ERROR"})
-    } else {
-      setState({data: {posts: posts.data, sections: getRandomSections(posts.data) }, status: "OK"})
-      // setSections(getRandomSections(posts));
-      // setPosts(posts);
-    }
+      setState({data: {posts: posts, sections: getRandomSections(posts) }, status: "OK"})
   }
 
   useEffect(() => {
-l
+    getData();
   }, [])
 
 
@@ -70,30 +62,36 @@ l
       )
 
     case "OK":
-      return (
-        <pre>{JSON.stringify(state.data, null, 2)}</pre>
-      )
+      {const {posts, sections} = state.data;
+      const optionSections = sections.map(section => <option value={section}>{section}</option> );
+      const filteredSections =  sections.filter(section => section === filter || filter === "").map(section => <PostSection posts={posts.filter(post => post.tags.some(tag => tag === section))} name={section} key={section}/>)
 
+      return (
+        // <pre>{JSON.stringify(state.data, null, 2)}</pre>
+        <>
+        <Navbar />
+          <header className=" p-8 bg-cover w-screen">
+            <h1 className="text-center text-8xl m-20 text-white"> Tiny blog</h1>
+          </header>
+          <Main>
+              <p>select your favorite tag here! <i className="fa-solid fa-arrow-down"></i></p>
+              <select className="text-center text-2xl border rounded-full" onChange={(e) => setFilter(e.target.value)} name="filter" id="filter">
+                {/* <option value="all">all</option> */}
+                {optionSections}
+              </select>
+                {filteredSections}
+          </Main>
+
+        </>
+      )}
     default:
-      break;
+      return (
+        <p> Loading</p>
+      )
   }
-  return (
-    <>
-      <Navbar />
-      <header className=" p-8 bg-cover w-screen">
-        <h1 className="text-center text-8xl m-20 text-white"> Tiny blog</h1>
-      </header>
-      <main className='flex flex-wrap flex-col container mx-auto bg-white rounded p-4 mb-6'>
-        <p>select your favorite tag here! <i className="fa-solid fa-arrow-down"></i></p>
-        <select className="text-center text-2xl border rounded-full" onChange={(e) => setFilter(e.target.value)} name="filter" id="filter">
-          {sections.map(section => <option value={section}>{section}</option> )}
-        </select>
-        {
-          sections.filter(section => section == filter || filter == "").map(section => <PostSection posts={posts.filter(post => post.tags.some(tag => tag == section))} name={section} key={section}/>)
-        }
-      </main>
-    </>
-  )
+  // return (
+
+  // )
 }
 
 export default App

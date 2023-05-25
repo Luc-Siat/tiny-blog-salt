@@ -14,11 +14,12 @@ import { getRandomImagesfromApi } from "./loremPicsumApi";
  export const getPostFromApi = async () => {
 
     const response = (await fetch('src/services/Mockdata.json')).json();
-    const posts = (await response).posts as Partial<IPost>[] ;
+    const posts = (await response).posts as Omit<IPost, "imageUrl">[];
 
     const images = await getRandomImagesfromApi();
 
-    return addImagesToPosts(images, posts)
+    const imagedPost = addImagesToPosts(images, posts)
+    return imagedPost;
   }
 
 

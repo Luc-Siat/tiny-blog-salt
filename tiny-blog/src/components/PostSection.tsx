@@ -2,12 +2,12 @@ import { SyntheticEvent, useState } from 'react'
 import { IPost } from '../models/interfaces'
 import { PostCard } from './PostCard'
 
-type PostSectionProps = {
+type Props = {
   posts: IPost[],
   name: string
 }
 
-export const PostSection = ({ posts, name } : PostSectionProps) => {
+export const PostSection = ({ posts, name } : Props) => {
   const [showSection, setShowSection] = useState<boolean>(true);
 
   const handleToggle = (e :SyntheticEvent) => {

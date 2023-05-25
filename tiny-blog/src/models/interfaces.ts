@@ -1,4 +1,4 @@
-export interface IPost {
+export type IPost = {
   id: number,
   userId: number
   title: string,
@@ -8,6 +8,6 @@ export interface IPost {
   imageUrl: string
 }
 
-export interface IImage {
+export type IImage = {
   download_url:string
 }
