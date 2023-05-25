@@ -26,23 +26,13 @@ function App() {
   const [filter, setFilter] = useState<string>("");
   const [state, setState] = useState<State>({status: "LOADING"});
 
-  const getRandomSections = (posts : IPost[]) => {
-    const tags : string[] = [];
-    for(const post of posts) {
-      post.tags.forEach(tag => {
-
-        if (tags.includes(tag) || tags.length >= 5) {
-          return;
-        }
-        tags.push(tag);
-      });
-    }
-    return tags;
+  const getSections = (posts : IPost[]) => {
+    return Array.from(new Set(posts.flatMap(post => post.tags))).slice(0.5);
   }
 
   const getData = async () => {
     const posts = await getPostFromApi();
-      setState({data: {posts: posts, sections: getRandomSections(posts) }, status: "OK"})
+      setState({data: {posts: posts, sections: getSections(posts) }, status: "OK"})
   }
 
   useEffect(() => {
